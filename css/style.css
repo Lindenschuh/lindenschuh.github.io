@@ -531,6 +531,37 @@ button {
   margin-bottom: 2em;
   line-height: 2;
 }
+.cd-project-info .content-wrapper h1
+{
+  font-size: 200%;
+}
+.cd-project-info .content-wrapper h2
+{
+  font-weight: bolder;
+}
+.cd-project-info .content-wrapper .footP
+{
+  font-size: 75%;
+  font-weight: 300;
+}
+.cd-project-info .content-wrapper button
+{
+    -webkit-border-radius: 3;
+    -moz-border-radius: 3;
+    border: 1px solid #1b93df;
+    border-radius: 3px;
+    font-family: Arial;
+    color: #1b93df !important;
+    font-size: 14px;
+    background: #fff;
+    background-color: transparent;
+    padding: 4px 5px 4px 5px;
+    text-decoration: none; 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),inset 0 1px 0 rgba(255, 255, 255, 0.5);
+   text-shadow: 0 1px 0 #FFF;
+  display: inline-block;
+  margin: 5px 5px 5px 2px;
+}
 .selected .cd-project-info {
   -webkit-overflow-scrolling: touch;
   opacity: 1;
