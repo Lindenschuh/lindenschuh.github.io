@@ -1,10 +1,18 @@
-﻿html {
+﻿:root {
+    --background-color: #333333;
+    --card-color: #cbcbab;
+    --shadow-color: #abab9b;
+    --highlight-background: #abab8b;
+    --highlight-shadow: #af8c8c;
+}
+
+html {
     font-size: 14px;
 }
 
 body {
     display: grid;
-    background-color: #333333;
+    background-color: var(--background-color);
     grid-template: auto/10vw [card-start] auto [card-end] 10vw;
     grid-gap: 4vh 2vw;
 }
@@ -14,13 +22,13 @@ body {
     display: grid;
     grid-gap: 1vh 1vw;
     grid-template: 1fr 1fr 1fr 1.5fr / 1fr 2fr;
-    background-color: #cbcbab;
+    background-color: var(--card-color);
     padding: 1em;
     border-radius: 0.5em;
 }
 
     .card > * {
-        box-shadow: 0 0 0 0.2em #abab9b;
+        box-shadow: 0 0 0 0.2em var(--shadow-color);
         border-radius: 0.5em;
     }
 
@@ -67,10 +75,62 @@ body {
             }
 
                 .card > .readings ul li:not(:last-child):after {
-                    content: ", ";
+                    content: ",";
                 }
 
     .card > .highlight {
-        background-color: #abab8b;
-        box-shadow: 0 0 0 0.3em #af8c8c;
+        background-color: var(--highlight-background);
+        box-shadow: 0 0 0 0.3em var(--highlight-shadow);
     }
+
+@media screen and (max-width: 1200px) {
+    body {
+        grid-template-columns: 5% [card-start] auto [card-end] 5%;
+        grid-gap: 4vh 0;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+    }
+
+    .card {
+        grid-template: 5fr /1fr;
+        transition: 0.6s;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+        .card.hover {
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+
+        .card > .kanji {
+            grid-area: 1 / 1 / span 5 / -1;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .card > .readings {
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .card > .meaning {
+            grid-area: 4 / 1 / span 1 / -1;
+        }
+
+        .card > .on-yomi {
+            grid-area: 1 / 1 / span 1 / -1;
+        }
+
+        .card > .kun-yomi {
+            grid-area: 2 / 1 / span 1 / -1;
+        }
+
+        .card > .nanori {
+            grid-area: 3 / 1 / span 1 / -1;
+        }
+}
