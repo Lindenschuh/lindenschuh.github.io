@@ -1,0 +1,76 @@
+﻿html {
+    font-size: 14px;
+}
+
+body {
+    display: grid;
+    background-color: #333333;
+    grid-template: auto/10vw [card-start] auto [card-end] 10vw;
+    grid-gap: 4vh 2vw;
+}
+
+.card {
+    grid-column: card;
+    display: grid;
+    grid-gap: 1vh 1vw;
+    grid-template: 1fr 1fr 1fr 1.5fr / 1fr 2fr;
+    background-color: #cbcbab;
+    padding: 1em;
+    border-radius: 0.5em;
+}
+
+    .card > * {
+        box-shadow: 0 0 0 0.2em #abab9b;
+        border-radius: 0.5em;
+    }
+
+    .card h2 {
+        font-size: 1.2em;
+    }
+
+    .card > .kanji {
+        padding: 0 1em;
+        grid-area: 1 / 1 / span 3 / 2;
+        display: grid;
+        grid-template: auto auto / auto;
+    }
+
+        .card > .kanji > h2 {
+            font-size: 1.6em;
+        }
+
+        .card > .kanji > .symbol {
+            font-size: 10em;
+            align-self: flex-start;
+            justify-self: center;
+        }
+
+    .card > .meaning {
+        grid-area: 4 / 1 / -1 / -1;
+    }
+
+    .card > .readings {
+        padding: 0.2em 1em;
+    }
+
+        .card > .readings ul {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            font-size: 1.4em;
+            padding: 0.2em 0.1em;
+        }
+
+            .card > .readings ul li {
+                margin: 0 0.5em;
+                list-style-type: none;
+            }
+
+                .card > .readings ul li:not(:last-child):after {
+                    content: ", ";
+                }
+
+    .card > .highlight {
+        background-color: #abab8b;
+        box-shadow: 0 0 0 0.3em #af8c8c;
+    }
