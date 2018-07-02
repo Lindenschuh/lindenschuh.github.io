@@ -1,4 +1,5 @@
 ﻿:root {
+    --font-size: 12px;
     --background-color: #333333;
     --card-color: #cbcbab;
     --shadow-color: #abab9b;
@@ -6,131 +7,196 @@
     --highlight-shadow: #af8c8c;
 }
 
-html {
-    font-size: 14px;
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
 }
 
 body {
-    display: grid;
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+        content: '';
+        content: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+html {
+    font-size: var(--font-size);
+}
+
+body {
     background-color: var(--background-color);
-    grid-template: auto/10vw [card-start] auto [card-end] 10vw;
-    grid-gap: 4vh 2vw;
+    display: grid;
+    grid-template: auto/2% [card-start] auto [card-end] 2%;
+    grid-gap: 2em 0.5rem;
+    padding: 2em 0;
+}
+
+.card-container {
+    grid-column: card;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+
+.card-container,
+.card {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: all .8s ease-in-out;
+}
+
+.front,
+.back {
+    grid-area: 1 / 1 / -1 / -1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.front {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+
+.back {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
+
+.card-container .card.hover {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 
 .card {
-    grid-column: card;
     display: grid;
-    grid-gap: 1vh 1vw;
-    grid-template: 1fr 1fr 1fr 1.5fr / 1fr 2fr;
     background-color: var(--card-color);
-    padding: 1em;
+    grid-template: 1fr / 1fr;
     border-radius: 0.5em;
+    padding: 2em;
 }
 
-    .card > * {
+    .card .front, .card .back {
+        display: grid;
+        grid-template: repeat(5, 1fr)/repeat(3, 1fr);
+    }
+
+    .card > .front {
         box-shadow: 0 0 0 0.2em var(--shadow-color);
         border-radius: 0.5em;
     }
 
-    .card h2 {
+        .card > .front .kanji {
+            grid-area: 1 / 1 / -1 / -1;
+            padding: 0 1rem;
+            font-size: 10em;
+            place-self: center;
+        }
+
+    .card > .back {
+        grid-gap: 1em;
+    }
+
+        .card > .back .readings {
+            padding: 0.5em 1em;
+            box-shadow: 0 0 0 0.2em var(--shadow-color);
+            background-color: var(--card-color);
+            border-radius: 0.5em;
+        }
+
+            .card > .back .readings h2 {
+                font-size: 1.6em;
+                font-weight: 600;
+            }
+
+            .card > .back .readings ul {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                font-size: 1.4em;
+                padding: 0.2em 0.1em;
+            }
+
+                .card > .back .readings ul li {
+                    margin: 0 0.5rem;
+                }
+
+                    .card > .back .readings ul li:not(:last-child):after {
+                        content: ",";
+                    }
+
+            .card > .back .readings.highlight {
+                background-color: var(--highlight-background);
+                box-shadow: 0 0 0 0.3em var(--highlight-shadow);
+            }
+
+        .card > .back .meaning.readings {
+            grid-area: 4 / 1 / span 2 / -1;
+        }
+
+        .card > .back .readings {
+            grid-column: 1 / -1;
+        }
+
+@media screen and (min-width: 1000px) {
+    html {
         font-size: 1.2em;
     }
 
-    .card > .kanji {
-        padding: 0 1em;
-        grid-area: 1 / 1 / span 3 / 2;
-        display: grid;
-        grid-template: auto auto / auto;
-    }
-
-        .card > .kanji > h2 {
-            font-size: 1.6em;
-        }
-
-        .card > .kanji > .symbol {
-            font-size: 10em;
-            align-self: flex-start;
-            justify-self: center;
-        }
-
-    .card > .meaning {
-        grid-area: 4 / 1 / -1 / -1;
-    }
-
-    .card > .readings {
-        padding: 0.2em 1em;
-    }
-
-        .card > .readings ul {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0;
-            font-size: 1.4em;
-            padding: 0.2em 0.1em;
-        }
-
-            .card > .readings ul li {
-                margin: 0 0.5em;
-                list-style-type: none;
-            }
-
-                .card > .readings ul li:not(:last-child):after {
-                    content: ",";
-                }
-
-    .card > .highlight {
-        background-color: var(--highlight-background);
-        box-shadow: 0 0 0 0.3em var(--highlight-shadow);
-    }
-
-@media screen and (max-width: 1200px) {
     body {
-        grid-template-columns: 5% [card-start] auto [card-end] 5%;
-        grid-gap: 4vh 0;
-        -webkit-perspective: 1000;
-        perspective: 1000;
+        grid-template: auto/5% [card-start] auto [card-end] 5%;
+        grid-gap: 3em 1rem;
     }
 
-    .card {
-        grid-template: 5fr /1fr;
-        transition: 0.6s;
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
+    .card .front .kanji {
+        padding: 10%;
+        font-size: 20em;
     }
 
-        .card.hover {
-            -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
+    .card .back {
+        grid-template: repeat(3, 1fr)/repeat(3, 1fr);
+    }
+
+        .card .back .meaning.readings {
+            grid-area: 1 / 3 / span 3 / -1;
         }
 
-        .card > .kanji {
-            grid-area: 1 / 1 / span 5 / -1;
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .card > .readings {
-            -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .card > .meaning {
-            grid-area: 4 / 1 / span 1 / -1;
-        }
-
-        .card > .on-yomi {
-            grid-area: 1 / 1 / span 1 / -1;
-        }
-
-        .card > .kun-yomi {
-            grid-area: 2 / 1 / span 1 / -1;
-        }
-
-        .card > .nanori {
-            grid-area: 3 / 1 / span 1 / -1;
+        .card .back .readings {
+            grid-column: 1 / span 2;
         }
 }
